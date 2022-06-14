@@ -1,0 +1,88 @@
+﻿@page
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "_LayoutUserPortal";
+    var template = $"{Configuration.GetSection("URL").GetSection("template").Value}";
+}
+<div class="col-lg-6 d-flex justify-content-center align-items-center min-vh-lg-100">
+    <div class="w-100 pt-10 pt-lg-7 pb-7" style="max-width: 25rem;">
+        <!-- Form -->
+        <form class="js-validate" id="form" method="post">
+            <div class="text-center mb-5">
+                <h1 class="display-4">Register</h1>
+                @*<p>Don't have an account yet? <a asp-page="./ForgotPassword">Sign up here</a></p>*@
+            </div>
+
+            <!-- Form Group -->
+            <div class="js-form-message form-group">
+                <label class="input-label" for="txtFirstName">First Name</label>
+                <input type="text" class="form-control" asp-for="Input.FirstName" required id="txtFirstName">
+
+            </div>
+            <div class="js-form-message form-group">
+                <label class="input-label" for="txtSurname">Surname</label>
+                <input type="text" class="form-control" asp-for="Input.LastName" required id="txtSurname">
+
+            </div>
+
+            <div class="js-form-message form-group">
+                <label class="input-label" for="txtEmail">Your email</label>
+                <input type="text" class="form-control" asp-for="Input.Email" required id="txtEmail">
+                <span style="color:#ed4c78;font-size: 80%;">@Model.EmailExist</span>
+            </div>
+
+            <div class="js-form-message form-group">
+                <label class="input-label" for="txtCellphone">Cellphone</label>
+                <input type="text" class="form-control" asp-for="Input.PhoneNumber" required id="txtCellphone">
+
+            </div>
+
+
+            <div class="js-form-message form-group">
+                <label class="input-label" for="txtPassword">Password</label>
+                <input type="password" class="form-control" asp-for="Input.Password" required id="txtPassword">
+
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-block btn-primary">Sign in</button>
+            <a href="/Identity/Account/Login" class="btn btn-lg btn-block btn-primary">Login</a>
+        </form>
+    </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+    $(function () {
+        $("#txtLastName").on("change", function () {
+            var isValid = false;
+            var regex = /^[a-zA-Z ]*$/;
+            isValid = regex.test($("[id*=txtLastName]").val());
+            $("#spnError2").css("display", !isValid ? "block" : "none");
+            return isValid;
+        });
+    });
+
+
+    $(function () {
+        $("#txtFirstName").on("change", function () {
+            var isValid = false;
+            var regex = /^[a-zA-Z ]*$/;
+            isValid = regex.test($("[id*=txtFirstName]").val());
+            $("#spnError1").css("display", !isValid ? "block" : "none");
+            return isValid;
+        });
+    });
+
+    $("#ddlRoles").change(function () {
+        var selectedVal = $('#ddlRoles :selected').text()
+        if (selectedVal == "Customer") {
+            $('#ddlCustomers').css('visibility', 'visible');
+        } else {
+            $('#ddlCustomers').css('visibility', 'hidden');
+        }
+    });
+</script>
+}
