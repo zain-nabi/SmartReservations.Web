@@ -140,7 +140,7 @@ namespace SmartReservation.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        return Redirect(returnUrl);
+                        return Redirect(Url.Action("Reservations", "Reservation"));
                     }
                 }
             }

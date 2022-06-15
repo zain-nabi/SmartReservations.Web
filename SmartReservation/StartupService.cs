@@ -11,6 +11,12 @@ namespace SmartReservation
             services.AddScoped<IRole, RoleService>();
             services.AddScoped<IExternalUser, ExternalUserService>();
             services.AddScoped<IExternalUserRole, ExternalUserRoleService>();
+            services.AddScoped<IRestaurant, RestaurantService>();
+            services.AddScoped<IReservation, ReservationService>();
+            services.AddScoped<IReservationStatus, ReservationStatusService>();
+            services.AddScoped<ITableSettings, TableSettingsService>();
+            services.AddScoped<IMenuItem, MenuItemService>();
+            services.AddScoped<IOrder, OrderRepository>();
         }
     }
 }

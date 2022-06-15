@@ -70,7 +70,7 @@
         <div class="js-mega-menu navbar-nav-wrap hs-menu-initialized hs-menu-horizontal">
             <div class="navbar-brand-wrapper">
                 <!-- Logo -->
-                <a class="navbar-brand" href="./index.html" aria-label="Front">
+                <a class="navbar-brand" href="@Url.Action("Home", "Index")" aria-label="Front">
                     <img class="navbar-brand-logo" src="~/front-dashboard-v1.1/dist/assets/img/logo/smart-reservations.png" alt="Logo">
                 </a>
 
@@ -346,7 +346,6 @@
     <!-- ========== HEADER ========== -->
     <!-- ========== END HEADER ========== -->
     <!-- ========== MAIN CONTENT ========== -->
-
     @RenderBody()
 
     <!-- ========== END MAIN CONTENT ========== -->
@@ -370,7 +369,9 @@
     <script src="~/front-dashboard-v1.1/src/assets/js/hs.validation.min.js"></script>
     <script src="~/front-dashboard-v1.1/dist/assets/vendor/hs-unfold/dist/hs-unfold.min.js"></script>
     <script src="~/front-dashboard-v1.1/src/assets/js/hs.daterangepicker.min.js"></script>
-    <script src="~/front-dashboard-v1.1/src/assets/js/hs.validation.min.js"></script>
+    <script src="~/front-dashboard-v1.1/dist/assets/vendor/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="~/front-dashboard-v1.1/src/assets/js/hs.flatpickr.js"></script>
+    <script src="~/front-dashboard-v1.1/dist/assets/vendor/hs-quantity-counter/dist/hs-quantity-counter.min.js"></script>
 
 
 
@@ -393,6 +394,19 @@
             $('.js-select2-custom').each(function () {
                 var select2 = $.HSCore.components.HSSelect2.init($(this));
             });
+
+            // INITIALIZATION OF FLATPICKR
+            // =======================================================
+            $('.js-flatpickr').each(function () {
+                $.HSCore.components.HSFlatpickr.init($(this));
+            });
+
+            // INITIALIZATION OF QUANTITY COUNTER
+            // =======================================================
+            $('.js-quantity-counter').each(function () {
+                var quantityCounter = new HSQuantityCounter($(this)).init();
+            });
+
 
             // INITIALIZATION OF NAVBAR VERTICAL NAVIGATION
             // =======================================================
@@ -538,8 +552,10 @@
 
     <!-- IE Support -->
     <script>
-    @{ var url = $"{Context.Request.PathBase}/front-dashboard-v1.1/dist/assets/vendor/babel-polyfill/polyfill.min.js"; }
-    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="@url"><\/script>');
+        @{
+            var url = $"{Context.Request.PathBase}/front-dashboard-v1.1/dist/assets/vendor/babel-polyfill/polyfill.min.js";
+        }
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="@url"><\/script>');
     </script>
 </body>
 </html>

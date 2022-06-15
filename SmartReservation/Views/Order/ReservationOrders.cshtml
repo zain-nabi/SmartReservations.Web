@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SmartReservation.Model.Order>
+@{
+    ViewData["Title"] = "Order Items";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- ========== MAIN ========== -->
+<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Orders</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Current</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Purchased Orders</h1>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Page Header -->
+    </div>
+    <div class="content container-fluid my-n9">
+        <div class="row">
+            @foreach (var item in Model.OrderBy(model => model.CreatedOn))
+            {
+                <div id="stickyBlockStartPoint" class="col-lg-4 mb-3 mb-lg-0" style="">
+                    <div class="js-sticky-block" data-hs-sticky-block-options="{
+                   &quot;parentSelector&quot;: &quot;#stickyBlockStartPoint&quot;,
+                   &quot;breakpoint&quot;: &quot;lg&quot;,
+                   &quot;startPoint&quot;: &quot;#stickyBlockStartPoint&quot;,
+                   &quot;endPoint&quot;: &quot;#stickyBlockEndPoint&quot;,
+                   &quot;stickyOffsetTop&quot;: 20
+                 }" style="">
+
+                        <!-- End Row -->
+
+
+                    <div class="card h-100">
+                            <!-- Header -->
+                        <div class="card-header" style="background-color:gold">
+                                <h5 class="card-header-title">Quantity: <span class="badge bg-soft-sucess text-sucess">@item.Plates</span></h5>
+                            </div>
+                            <!-- End Header -->
+                            <!-- Body -->
+                        <div class="card-body" style="background-color:mintcream">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Item</dt>
+                                    <dd class="col-sm-9">@item.Item</dd>
+                                </dl>
+                            </div>
+                            <!-- End Body -->
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+
+
+

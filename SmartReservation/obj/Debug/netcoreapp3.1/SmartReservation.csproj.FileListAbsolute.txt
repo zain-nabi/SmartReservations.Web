@@ -453,3 +453,15 @@ C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReser
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\bin\Debug\netcoreapp3.1\Sitemap.xml
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Restaurant\Create.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Restaurant\Update.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Restaurant\Restaurants.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Reservation\Create.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Reservation\Reservations.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Reservation\Update.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\MenuItem\Create.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\MenuItem\Update.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Reservation\AllReservations.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Reservation\AdminUpdate.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Order\Create.cshtml.g.cs
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Debug\netcoreapp3.1\Razor\Views\Order\ReservationOrders.cshtml.g.cs

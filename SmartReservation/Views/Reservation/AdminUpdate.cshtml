@@ -1,0 +1,159 @@
+﻿@model SmartReservation.Models.ReservationViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<main id="content" role="main" class="main">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><span class="breadcrumb-link">Reservation</span></li>
+                            <li class="breadcrumb-item active" aria-current="page">Update</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Update Reservation</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- For Validation -->
+        <!-- End For Validation -->
+        <div class="content container-fluid">
+            <form class="js-validate" id="form1" method="post" asp-action="Update" asp-controller="Reservation">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Details</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="txtPeople" class="input-label">People</label>
+                                    <div class="js-form-message mb-3">
+                                        <input id="txtPeople" type="text" class="form-control" required="required"
+                                               placeholder="People" aria-label="Current Value" asp-for="Reservation.People" value="@Model.Reservation.People">
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+                                <div class="form-group">
+                                    <label for="Restaurant" class="input-label">Restaurant</label>
+                                    <div class="js-form-message mb-3">
+                                        <select class="js-select2-custom custom-select" size="1" style="opacity: 0;" asp-for="Reservation.RestaurantID" value="@Model.Reservation.RestaurantID" asp-items="Model.Restaurants" required
+                                                data-msg="Please select a vehicle model."
+                                                data-hs-select2-options='{
+                                                "minimumResultsForSearch": "Infinity",
+                                                "placeholder": "Select a Restaurant"
+                                                }'>
+                                            <option label="empty"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Restaurant" class="input-label">Reservation Status</label>
+                                    <div class="js-form-message mb-3">
+                                        <select class="js-select2-custom custom-select" size="1" style="opacity: 0;" asp-for="Reservation.ReservationStatusID" value="@Model.Reservation.ReservationStatusID" asp-items="Model.ReservationStatusList" required
+                                                data-msg="Please select a vehicle model."
+                                                data-hs-select2-options='{
+                                                "minimumResultsForSearch": "Infinity",
+                                                "placeholder": "Status"
+                                                }'>
+                                            <option label="empty"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="txtName" class="input-label">Name</label>
+                                    <div class="js-form-message mb-3">
+                                        <input id="txtName" type="text" class="form-control" required="required"
+                                               placeholder="Name" aria-label="Current Value" asp-for="Reservation.Name">
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+                                <div class="form-group">
+                                    <label for="txtCell" class="input-label">Phone</label>
+                                    <div class="js-form-message mb-3">
+                                        <input id="txtPhone" type="text" class="form-control" required="required"
+                                               placeholder="Phone" aria-label="Current Value" asp-for="Reservation.Cell">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="txtTime" class="input-label">Time</label>
+                                    <div class="js-form-message mb-3">
+                                        <input type="text" class="js-flatpickr form-control flatpickr-custom" placeholder="Select dates" required data-msg="Please select a date" asp-for="Reservation.Time"
+                                               data-hs-flatpickr-options='{
+                                                "dateFormat": "Y/m/d H:i",
+                                                "enableTime": "true"
+                                            }'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @Html.HiddenFor(model => model.Reservation.reservationID)
+                        @Html.HiddenFor(model => model.Reservation.CreatedByUserID)
+                        <div class="w-100"></div>
+                        <!-- End Form -->
+                    </div>
+                    <!-- Footer -->
+                    <div class="card-footer d-flex justify-content-end">
+                        <a class="btn btn-white" href="@Url.Action("Restaurants", "Restaurant")">Cancel</a>
+                        <input type="submit" value="Save" class="btn btn-primary ml-2" id="btnSave" />
+                    </div>
+                    <!-- End Footer -->
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section scripts{
+<script>
+    $('#txtPeople').keyup(function(e){
+          if (/\D/g.test(this.value))
+          {
+            this.value = this.value.replace(/\D/g, '');
+          }
+    });
+
+        $('#txtPhone').keyup(function(e){
+          if (/\D/g.test(this.value))
+          {
+            this.value = this.value.replace(/\D/g, '');
+          }
+    });
+
+        $(function () {
+        $("#txtName").on("change", function () {
+            var isValid = false;
+            var regex = /^[a-zA-Z ]*$/;
+            isValid = regex.test($("[id*=txtName]").val());
+            $("#spnError1").css("display", !isValid ? "block" : "none");
+            return isValid;
+        });
+    });
+</script>
+}
+
+
+

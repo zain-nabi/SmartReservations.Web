@@ -1,0 +1,81 @@
+﻿@model SmartReservation.Model.MenuItem
+@{
+    ViewData["Title"] = "New Menu Item";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="content" role="main" class="main">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><span class="breadcrumb-link">Menu Item</span></li>
+                            <li class="breadcrumb-item active" aria-current="page">Create</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">New Menu Item</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- For Validation -->
+        <!-- End For Validation -->
+        <div class="content container-fluid">
+            <form class="js-validate" id="form1" method="post" asp-action="Create" asp-controller="MenuItem">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Details</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- Form Group -->
+                                <div class="form-group">
+                                    <label for="txtName" class="input-label">Name</label>
+                                    <div class="js-form-message mb-3">
+                                        <input id="txtName" type="text" class="form-control" required="required"
+                                               placeholder="Name" aria-label="Current Value" asp-for="Name">
+                                    </div>
+                                </div>
+                                <!-- End Form Group -->
+                                <div class="form-group">
+                                    <label for="txtPrice" class="input-label">Price</label>
+                                    <div class="js-form-message mb-3">
+                                        <input id="txtPrice" type="text" class="form-control" required="required"
+                                               placeholder="Price" aria-label="Current Value" asp-for="Price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-100"></div>
+                        <!-- End Form -->
+                    </div>
+                    <!-- Footer -->
+                    <div class="card-footer d-flex justify-content-end">
+                        <a class="btn btn-white" href="@Url.Action("Restaurants", "Restaurant")">Cancel</a>
+                        <input type="submit" value="Save" class="btn btn-primary ml-2" id="btnSave" />
+                    </div>
+                    <!-- End Footer -->
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section scripts{
+<script>
+function checkKey() {
+    var clean = this.value.replace(/[^0-9,]/g, "")
+                           .replace(/(,.*?),(.*,)?/, "$1");
+    if (clean !== this.value) this.value = clean;
+}
+document.getElementById('txtPrice').oninput = checkKey;
+</script>
+}
+
+
+

@@ -50,7 +50,7 @@ namespace SmartReservation.Service
         /// <returns></returns>
         public async Task<T> GetAsync<T>(string controller, string path, string apiConfigKey = "v1")
         {
-            var apiUrl = $"{_config.GetSection("WebApiUrl").GetSection(apiConfigKey).Value}{controller.Trim()}{path.Trim()}";
+            var apiUrl = $"{_config.GetSection("WebApiUrl").GetSection(apiConfigKey).Value}{controller.Trim()}/{path.Trim()}";
             var response = await _httpClient.GetAsync(apiUrl, _cancellationToken).ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)

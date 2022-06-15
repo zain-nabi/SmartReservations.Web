@@ -1,0 +1,190 @@
+﻿@model IEnumerable<SmartReservation.Model.Restaurant>
+
+@{
+    ViewData["Title"] = "Restaurants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="content" role="main" class="main">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Restaurants</a></li>
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Overview</a></li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Active Restaurants</h1>
+                </div>
+            </div>
+            <!-- End Row -->
+        </div>
+        <div class="card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center flex-grow-1">
+                    <div class="col-lg-6 mb-3 mb-lg-0">
+                        <form>
+                            <!-- Search -->
+                            <div class="input-group input-group-merge input-group-flush">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="tio-search"></i>
+                                    </div>
+                                </div>
+                                <input id="datatableSearch" type="search" class="form-control" placeholder="Search orders" aria-label="Search orders">
+                            </div>
+                            <!-- End Search -->
+                        </form>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Header -->
+            <!-- Table -->
+            <div class="table-responsive datatable-custom">
+                <div id="datatable_wrapper" class="dataTables_wrapper no-footer">
+                    <table id="datatable" class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table dataTable no-footer" style="width: 100%;" data-hs-datatables-options='{
+              "order": [],
+             "columnDefs": [ {
+                            "targets": 5,
+                            "orderable": false
+             } ],
+             "info": {
+               "totalQty": "#datatableEntriesInfoTotalQty"
+             },
+             "entries": "#datatableEntries",
+             "isResponsive": false,
+             "isShowPaging": false,
+             "pagination": "datatableEntriesPagination"
+                   }'>
+                        <thead class="thead-light">
+                            <tr role="row">
+                                <th>Name</th>
+                                <th>Created On</th>
+                                <th>Location</th>
+                                <th>Phone</th>
+                                <th>Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="">
+                                    <td class="align-middle">
+                                        <a class="d-flex align-items-center">
+                                            <div class="avatar avatar-soft-primary avatar-circle">
+                                                <span class="avatar-initials">@item.Name.Substring(0, 1)</span>
+                                            </div>
+                                            <div class="ml-3">
+                                                <span class="d-block h5 text-hover-primary mb-0">@item.Name</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td class="align-middle">
+                                        <div class="media align-items-center">
+                                            <span>@item.CreatedOn.ToString("dd MMMM yyyy")</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @item.Location
+                                    </td>
+                                    <td>
+                                        @item.Phone
+                                    </td>
+                                    <td>
+                                        @item.Active
+                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td class="align-middle">
+                                            <div class="hs-unfold">
+                                                <a class="js-hs-unfold-invoker btn btn-sm btn-white" href="javascript:;" data-hs-unfold-options="{
+                                            &quot;target&quot;: &quot;#@item.restaurantID&quot;,
+                                            &quot;type&quot;: &quot;css-animation&quot;
+                                        }" data-hs-unfold-target="#@item.restaurantID" data-hs-unfold-invoker="">
+                                                    Actions <i class="tio-chevron-down ml-1"></i>
+                                                </a>
+
+                                                <div id="@item.restaurantID" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm dropdown-menu-right hs-unfold-content-initialized hs-unfold-css-animation animated hs-unfold-hidden" data-hs-target-height="145.078" data-hs-unfold-content="" data-hs-unfold-content-animation-in="slideInUp" data-hs-unfold-content-animation-out="fadeOut" style="animation-duration: 300ms;">
+                                                    <a class="btn btn-sm btn-white" href="@Url.Action("Update", new { item.restaurantID} )">
+                                                        <i class="tio-receipt-outlined mr-1"></i> Update
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="align-middle">
+                                            <div class="hs-unfold">
+                                                <a class="js-hs-unfold-invoker btn btn-sm btn-white" href="javascript:;" data-hs-unfold-options="{
+                                            &quot;target&quot;: &quot;#@item.restaurantID&quot;,
+                                            &quot;type&quot;: &quot;css-animation&quot;
+                                        }" data-hs-unfold-target="#@item.restaurantID" data-hs-unfold-invoker="">
+                                                    Actions <i class="tio-chevron-down ml-1"></i>
+                                                </a>
+
+                                                <div id="@item.restaurantID" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm dropdown-menu-right hs-unfold-content-initialized hs-unfold-css-animation animated hs-unfold-hidden" data-hs-target-height="145.078" data-hs-unfold-content="" data-hs-unfold-content-animation-in="slideInUp" data-hs-unfold-content-animation-out="fadeOut" style="animation-duration: 300ms;">
+                                                    <a class="btn btn-sm btn-white" href="@Url.Action("Create","Reservation", new {RestaurantID =  item.restaurantID} )">
+                                                        <i class="tio-receipt-outlined mr-1"></i> RSVP
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- End Table -->
+            <!-- Footer -->
+            <div class="card-footer">
+                <!-- Pagination -->
+                <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        @*                        <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                            <span class="mr-2">Showing:</span>
+
+                            <!-- Select -->
+                            <select id="datatableEntries" class="js-select2-custom"
+                            data-hs-select2-options='{
+                            "minimumResultsForSearch": "Infinity",
+                            "customClass": "custom-select custom-select-sm custom-select-borderless",
+                            "dropdownAutoWidth": true,
+                            "width": true
+                            }'>
+                            <option value="3">3</option>
+                            <option value="6" selected>6</option>
+                            <option value="9">9</option>
+                            </select>
+                            <!-- End Select -->
+
+                            <span class="text-secondary mr-2">of</span>
+
+                            <!-- Pagination Quantity -->
+                            <span id="datatableEntriesInfoTotalQty"></span>
+                            </div>*@
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <div class="d-flex justify-content-center justify-content-sm-end">
+                            <!-- Pagination -->
+                            <nav id="datatableEntriesPagination" aria-label="Activity pagination"></nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Pagination -->
+            </div>
+            <!-- End Footer -->
+        </div>
+    </div>
+</main>
