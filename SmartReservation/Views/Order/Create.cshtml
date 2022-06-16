@@ -31,7 +31,7 @@
                 <div class="card">
                     <div class="card-header bg-soft-secondary">
                         <h5 class="card-header-title">
-                            Order Processing Form
+                            Order Processing Form - ( Dinners ): @Model.NoOfPeople
                         </h5>
                     </div>
 
@@ -69,7 +69,7 @@
                                                         </div>
                                                     </td>
                                                     <td style="width:10%" class="js-form-message">
-                                                        <select class="js-select2-custom custom-select formClassa" id="@("txtItem"+i)" name="Item" size="1" style="opacity: 0;"
+                                                        <select class="js-select2-custom custom-select formClass" id="@("txtItem"+i)" name="Item" size="1" style="opacity: 0;"
                                                             data-msg="Please select an Item."
                                                             data-hs-select2-options='{
                                                 "minimumResultsForSearch": "Infinity",
@@ -78,7 +78,7 @@
                                                             <option label="empty"></option>
                                                             @foreach(var item in Model.MenuItemsList)
                                                             {
-                                                                <option label="@item.Value">@item.Text</option>
+                                                                <option value="@item.Text">@item.Text</option>
                                                             }
                                                         </select>                                                    
                                                     </td>
@@ -142,7 +142,6 @@
 
     $(document).ready(function () {
 
-        varibaleMassValidation();
 
         var v = document.getElementById('txtQty5').value;
         if (v != null) {
@@ -152,7 +151,6 @@
         var uniqueID = 6;
         $('#addRow').on('click',
             function() {
-                alert();
                 var html = `<tr class="rowClass">
                                 <td style="width:2%" ><label id="txtLineNo${uniqueID}">${uniqueID}</label></td>
                                 <td style="width:10%"  class="js-form-message">
@@ -174,9 +172,8 @@
                                         <select class="js-select2-custom custom-select formClass" name="Item" size="1" id="txtDescription${uniqueID}" required
                                                 data-hs-select2-options='{ "minimumResultsForSearch": "Infinity","placeholder": "Load" }'>
                                             <option></option>
-                                            <option value="None">None</option>
                                             @foreach(var item in Model.MenuItemsList){
-                                                <option value="@item.Value">@item.Text</option>
+                                                <option value="@item.Text">@item.Text</option>
                                             }
                                         </select>
                                     <span style="color: #ed4c78;display: none;font-size: 80%;" id="ddlLoadErrorMessage${uniqueID}">This field is required.</span>
@@ -186,7 +183,6 @@
                 $('#tblDimensions tr:last').after(html);
                 uniqueID++;
 
-                varibaleMassValidation();
 
                 $('.js-select2-custom').each(function () {
                     var select2 = $.HSCore.components.HSSelect2.init($(this));
@@ -194,8 +190,10 @@
 
                 const res = $('.rowClass').map(function () {
                     var obj = {};
-                    $(this).find('input.formClass, select.formClassa').each(function (i, el) {
- obj[el.name] = el.value;
+                    $(this).find('input.formClass, select.formClass').each(function (i, el) {
+                        if (el.value != "") {
+                            obj[el.name] = el.value;
+                        }
                     })
                     return obj
                 }).get()
@@ -210,8 +208,10 @@
 
             const response = $('.rowClass').map(function () {
                 var obj = {};
-                $(this).find('input.formClass, select.formClassa').each(function (i, el) {
+                $(this).find('input.formClass, select.formClass').each(function (i, el) {
+                    if (el.value != "") {
                         obj[el.name] = el.value;
+                    }
                 })
                 return obj
             }).get()
@@ -230,7 +230,6 @@
             }).get();
 
 
-            //For text boxess
             //$('#tblDimensions tr').each(function (i, el)
             //{
             //    $(this).find('input.formClass').each(function (ii, el) {
@@ -242,19 +241,11 @@
             //                        var lastChar = el.id.substr(el.id.length - 1);
             //                        $("#ddlLoadErrorMessage" + lastChar).css("display", true ? "block" : "none");
             //                        $("#ddlLoadErrorMessageQty" + lastChar).css("display", true ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageLength" + lastChar).css("display", true ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", true ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageHeight" + lastChar).css("display", true ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageMass" + lastChar).css("display", true ? "block" : "none");
 
 
             //                        $(this).change(function () {
             //                            $("#ddlLoadErrorMessage" + lastChar).css("display", false ? "block" : "none");
             //                            $("#ddlLoadErrorMessageQty" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageLength" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageHeight" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageMass" + lastChar).css("display", false ? "block" : "none");
             //                        });
 
             //                        e.preventDefault();
@@ -306,18 +297,10 @@
             //                {
             //                    var lastChar = el.id.substr(el.id.length - 1);
             //                    $("#ddlLoadErrorMessageQty" + lastChar).css("display", true ? "block" : "none");
-            //                    $("#ddlLoadErrorMessageLength" + lastChar).css("display", true ? "block" : "none");
-            //                    $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", true ? "block" : "none");
-            //                    $("#ddlLoadErrorMessageHeight" + lastChar).css("display", true ? "block" : "none");
-            //                    $("#ddlLoadErrorMessageMass" + lastChar).css("display", true ? "block" : "none");
 
 
             //                    $(this).change(function () {
             //                        $("#ddlLoadErrorMessageQty" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageLength" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageHeight" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageMass" + lastChar).css("display", false ? "block" : "none");
             //                    });
 
             //                    e.preventDefault();
@@ -325,10 +308,6 @@
             //                    $('#tblDimensions').find('tr').eq(i).find(':input').each(function (ix, el) {
             //                        $(this).change(function () {
             //                            $("#ddlLoadErrorMessageQty" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageLength" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageHeight" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageMass" + lastChar).css("display", false ? "block" : "none");
             //                        });
 
             //                        e.preventDefault();
@@ -346,10 +325,6 @@
             //                    $(this).change(function () {
             //                        $("#ddlLoadErrorMessage" + lastChar).css("display", false ? "block" : "none");
             //                        $("#ddlLoadErrorMessageQty" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageLength" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageHeight" + lastChar).css("display", false ? "block" : "none");
-            //                        $("#ddlLoadErrorMessageMass" + lastChar).css("display", false ? "block" : "none");
             //                    });
 
             //                    e.preventDefault();
@@ -358,10 +333,6 @@
             //                        $(this).change(function () {
             //                            $("#ddlLoadErrorMessage" + lastChar).css("display", false ? "block" : "none");
             //                            $("#ddlLoadErrorMessageQty" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageLength" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageBreadth" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageHeight" + lastChar).css("display", false ? "block" : "none");
-            //                            $("#ddlLoadErrorMessageMass" + lastChar).css("display", false ? "block" : "none");
             //                        });
 
             //                        e.preventDefault();

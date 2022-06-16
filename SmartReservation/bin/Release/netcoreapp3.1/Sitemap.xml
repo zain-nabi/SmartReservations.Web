@@ -4,33 +4,10 @@
 		<mvcSiteMapSubTitle subTitle="Dashboard" controller="Home" action="Index" />
 	</mvcSiteMapNode>
 
-	<mvcSiteMapNode mainTitle="Waybills" icon="far fa-clipboard-list-check">
-		<mvcSiteMapSubTitle subTitle="Quotations">
-			<mvcSiteMapSubTitleChild childTitle="Add Quotation" controller="Quotation" action="Create" />
-			<mvcSiteMapSubTitleChild childTitle="Search" controller="Quotation" action="Index"  />
-			<mvcSiteMapSubTitleChild childTitle="Add Site Code" controller="SiteCode" action="Create"  />
-		</mvcSiteMapSubTitle>
-
-		<mvcSiteMapSubTitle subTitle="Collections">
-			<mvcSiteMapSubTitleChild childTitle="Add Collections" controller="Collection" action="Create" />
-			<mvcSiteMapSubTitleChild childTitle="Search" controller="Collection" action="Index"  />
-		</mvcSiteMapSubTitle>
-
-		<mvcSiteMapSubTitle subTitle="Waybill">
-			<mvcSiteMapSubTitleChild childTitle="Add Waybill" controller="Waybill" action="Create" />
-			<mvcSiteMapSubTitleChild childTitle="Search" controller="Waybill" action="Search"  />
-		</mvcSiteMapSubTitle>
-	</mvcSiteMapNode>
-
-	<mvcSiteMapNode mainTitle="Reports" icon="far fa-clipboard-list-check">
-		<mvcSiteMapSubTitle subTitle="Financial">
-			<mvcSiteMapSubTitleChild childTitle="Statement" controller="Statement" action="Index" />
-			<mvcSiteMapSubTitleChild childTitle="Search Invoices" controller="Invoice" action="Index"  />
-		</mvcSiteMapSubTitle>
-
-		<mvcSiteMapSubTitle subTitle="Deliveries">
-			<mvcSiteMapSubTitleChild childTitle="Customer Assessment" controller="Report" action="CustomerAssessment" />
-
+	<mvcSiteMapNode mainTitle="Restaurants" icon="far fa-clipboard-list-check">
+		<mvcSiteMapSubTitle subTitle="Administration">
+			<mvcSiteMapSubTitleChild childTitle="New" controller="Restaurant" action="Create" roles="Admin"/>
+			<mvcSiteMapSubTitleChild childTitle="Restaurants" controller="Restaurant" action="Restaurants"  roles="Admin"/>
 		</mvcSiteMapSubTitle>
 	</mvcSiteMapNode>
 

@@ -1,3 +1,4 @@
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\PubTmp\Out\Html\ResetPassword.html
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\PubTmp\Out\Sitemap.xml
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\PubTmp\Out\SmartReservation.exe

@@ -23,12 +23,13 @@ namespace SmartReservation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(int reservationID, int RestaurantID)
+        public async Task<IActionResult> Create(int reservationID, int RestaurantID, int NoOfPeople)
         {
             var OrderViewModel = new SmartReservation.Models.OrderViewModel();
             OrderViewModel.Order = new Order();
             OrderViewModel.ReservationID = reservationID;
             OrderViewModel.RestaurantID = RestaurantID;
+            OrderViewModel.NoOfPeople = NoOfPeople;
             OrderViewModel.MenuItemsList = new SelectList(await _menuItem.Items(), "MenuItemID", "Name");
             return View(OrderViewModel);
         }
@@ -36,22 +37,18 @@ namespace SmartReservation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(SmartReservation.Models.OrderViewModel model)
         {
+            model.OrderLines =
+            JsonConvert.DeserializeObject<List<Order>>(WebUtility.UrlDecode(model.QuoteLineHF) ?? string.Empty);
+            model.OrderLines = model.OrderLines.Where(x => x.Item != null).ToList();
             var Items = new List<MenuItem>();
             foreach (var item in await _menuItem.Items())
             {
                 Items.Add(item);
             }
-
-            var ItemName = Items.Where(x => x.MenuItemID == model.Order.MenuItemID).Select(x => x.Name).FirstOrDefault();
-            var ItemPrice = Items.Where(x => x.MenuItemID == model.Order.MenuItemID).Select(x => x.Price).FirstOrDefault();
-
-            model.OrderLines =
-            JsonConvert.DeserializeObject<List<Order>>(WebUtility.UrlDecode(model.QuoteLineHF) ?? string.Empty);
-            model.OrderLines = model.OrderLines.Where(x => x.Item != "None").ToList();
-
-            foreach(var item in model.OrderLines)
+           
+            foreach (var item in model.OrderLines)
             {
-                item.Price = ItemPrice;
+                item.Price = Items.Where(x => x.Name == item.Item).Select(x => x.Price).FirstOrDefault();
                 item.RestaurantID = model.RestaurantID;
                 item.ReservationID = model.ReservationID;
                 item.CreatedOn = DateTime.Now;

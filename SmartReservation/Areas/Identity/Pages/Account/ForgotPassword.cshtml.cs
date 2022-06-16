@@ -10,19 +10,25 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using SmartReservation.Model;
+using Microsoft.Extensions.Configuration;
+using SmartReservation.Utils;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SmartReservation.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly UserManager<ExternalUser> _userManager;
+        private readonly IConfiguration _config;
+        private static IWebHostEnvironment _webHostEnvironment;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ExternalUser> userManager, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
-            _emailSender = emailSender;
+            _config = configuration;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [BindProperty]
@@ -40,7 +46,7 @@ namespace SmartReservation.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToPage("./ForgotPasswordConfirmation");
@@ -55,13 +61,19 @@ namespace SmartReservation.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
+                var template = new Dictionary<string, string>
+                {
+                    { "callbackUrl", callbackUrl}
+                };
+                var emailBody = EmailHelper.ResetPasswordEmail(template, "Html/ResetPassword.html", _webHostEnvironment);
+                var EmailBusiness = new EmailBusiness();
+                EmailBusiness.PasswordChange(emailBody, Input.Email);
+                //await _emailSender.SendEmailAsync(
+                //    Input.Email,
+                //    "Reset Password",
+                //    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                return RedirectToPage("./ForgotPasswordConfirmation", new { Email = user.Email });
             }
 
             return Page();

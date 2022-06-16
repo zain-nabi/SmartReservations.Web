@@ -46,14 +46,9 @@
                     <div class="card h-100">
                             <!-- Header -->
                         <div class="card-header" style="background-color:gold">
-
-                                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                                    <h5 class="card-header-title">@item.RestaurantName</h5>
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li><a href="@Url.Action("ReservationOrders", "Order", new{ReservationID = item.reservationID})"><span class="glyphicon glyphicon-log-out"></span> Orders</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <h5 class="card-header-title">@item.RestaurantName</h5>
+                            <a href="@Url.Action("ReservationOrders", "Order", new{ReservationID = item.reservationID})" style="float:right">Orders</a>
+                        </div>
                             <!-- End Header -->
                             <!-- Body -->
                         <div class="card-body" style="background-color:mintcream">
@@ -99,27 +94,30 @@
                             </div>
                             <!-- End Body -->
                         <div class="card-footer">
-                                <a href="@Url.Action("Create","Order", new{reservationID = item.reservationID, RestaurantID = item.RestaurantID})" class="btn btn-primary">Place Order</a>
-                                <a href="@Url.Action("Update","Reservation", new{reservationID = item.reservationID})" class="btn btn-primary">Edit</a>
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-primary" href="javascript:;" data-hs-unfold-options="{
+                            @if (item.ReservationStatusID != 2)
+                            {
+                                <a href="@Url.Action("Create","Order", new{reservationID = item.reservationID, RestaurantID = item.RestaurantID, NoOfPeople = item.People})" class="btn btn-primary">Place Order</a>
+                            }
+                            <a href="@Url.Action("Update","Reservation", new{reservationID = item.reservationID})" class="btn btn-primary">Edit</a>
+                            <div class="hs-unfold">
+                                <a class="js-hs-unfold-invoker btn btn-primary" href="javascript:;" data-hs-unfold-options="{
                                             &quot;target&quot;: &quot;#@item.reservationID&quot;,
                                             &quot;type&quot;: &quot;css-animation&quot;
                                         }" data-hs-unfold-target="#@item.reservationID" data-hs-unfold-invoker="">
-                                        Actions <i class="tio-chevron-down ml-1"></i>
-                                    </a>
+                                    Actions <i class="tio-chevron-down ml-1"></i>
+                                </a>
 
-                                    <div id="@item.reservationID" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm dropdown-menu-right hs-unfold-content-initialized hs-unfold-css-animation animated hs-unfold-hidden" data-hs-target-height="145.078" data-hs-unfold-content="" data-hs-unfold-content-animation-in="slideInUp" data-hs-unfold-content-animation-out="fadeOut" style="animation-duration: 300ms;">
-                                        <a class="ml-2" href="@Url.Action("Arrived","Reservation", new {reservationID =  item.reservationID, ReservationStatusID = 3} )">
-                                            Arrived
-                                        </a>
-                                        <br>
-                                        <a class="ml-2" href="@Url.Action("Complete","Reservation", new {reservationID =  item.reservationID, ReservationStatusID = 2} )">
-                                            Complete
-                                        </a>
-                                    </div>
+                                <div id="@item.reservationID" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm dropdown-menu-right hs-unfold-content-initialized hs-unfold-css-animation animated hs-unfold-hidden" data-hs-target-height="145.078" data-hs-unfold-content="" data-hs-unfold-content-animation-in="slideInUp" data-hs-unfold-content-animation-out="fadeOut" style="animation-duration: 300ms;">
+                                    <a class="ml-2" href="@Url.Action("Arrived","Reservation", new {reservationID =  item.reservationID, ReservationStatusID = 3} )">
+                                        Arrived
+                                    </a>
+                                    <br>
+                                    <a class="ml-2" href="@Url.Action("Complete","Reservation", new {reservationID =  item.reservationID, ReservationStatusID = 2} )">
+                                        Complete
+                                    </a>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

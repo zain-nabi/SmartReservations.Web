@@ -24,7 +24,7 @@ namespace SmartReservation.Service
 
         public async Task<List<Order>> FindByReservationOrderByIdAsync(int ReservationID)
         {
-            return await _connection.GetAsync<List<Order>>("Order", $"FindReservationByIdAsync?ReservationID={ReservationID}");
+            return await _connection.GetAsync<List<Order>>("Order", $"FindByReservationOrderByIdAsync?ReservationID={ReservationID}");
         }
 
         public async Task<List<Order>> FindByRestaurantOrderByIdAsync(int RestaurantID)
