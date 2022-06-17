@@ -56,7 +56,7 @@
                                                     <td style="width:2%"><label id="txtLineNo-@i">@i</label></td>
                                                     <td style="width:10%" class="js-form-message">
                                                         <div class="js-quantity-counter input-group-quantity-counter">
-                                                            <input required type="number" name="Plates" id="@("txtQty"+i)"  class="js-result form-control input-group-quantity-counter-control formClass">
+                                                            <input required type="number" name="Plates" id="@("txtQty"+i)" class="js-result form-control input-group-quantity-counter-control formClass">
 
                                                             <div class="input-group-quantity-counter-toggle">
                                                                 <a class="js-minus input-group-quantity-counter-btn" href="javascript:;">
@@ -76,18 +76,22 @@
                                                 "placeholder": "Select a Item"
                                                 }'>
                                                             <option label="empty"></option>
-                                                            @foreach(var item in Model.MenuItemsList)
+                                                            @foreach (var item in Model.MenuItemsList)
                                                             {
                                                                 <option value="@item.Text">@item.Text</option>
                                                             }
-                                                        </select>                                                    
+                                                        </select>
                                                     </td>
                                                 </tr>
                                             }
                                         </tbody>
                                     </table>
                                     <a href="#" class="form-link btn btn-sm btn-no-focus btn-ghost-primary" id="addRow"><i class="tio-add"></i> Add Row</a>
-
+                                    <div class="d-flex justify-content-center" style="visibility:hidden" id="spinnerRegister">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -193,6 +197,7 @@
                     $(this).find('input.formClass, select.formClass').each(function (i, el) {
                         if (el.value != "") {
                             obj[el.name] = el.value;
+                            document.getElementById('spinnerRegister').style.visibility = 'visible';
                         }
                     })
                     return obj

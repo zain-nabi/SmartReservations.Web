@@ -35,5 +35,10 @@ namespace SmartReservation.Service
         {
             return await _connection.GetAsync<List<MenuItem>>("MenuItem", $"Items" , "v1");
         }
+
+        public async Task<MenuItem> CheckIfMenuItemExist(string MenuItem)
+        {
+            return await _connection.GetAsync<MenuItem>("MenuItem", $"CheckIfMenuItemExist?MenuItem={MenuItem}");
+        }
     }
 }

@@ -19,14 +19,14 @@
             </div>
 
             <!-- Form Group -->
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="signupSrEmail">Your email</label>
 
-                <input asp-for="Input.Email" type="email" class="form-control form-control-lg" name="email" id="signupSrEmail" placeholder="Markwilliams@example.com" aria-label="Markwilliams@example.com" required data-msg="Please enter a valid email address.">
+                <input asp-for="Input.Email" type="email" class="form-control form-control-lg formClass" name="email" id="signupSrEmail" placeholder="Markwilliams@example.com" aria-label="Markwilliams@example.com" required data-msg="Please enter a valid email address.">
             </div>
             <!-- End Form Group -->
             <!-- Form Group -->
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="signupSrPassword" tabindex="0">
                     <span class="d-flex justify-content-between align-items-center">
                         Password
@@ -35,7 +35,7 @@
                 </label>
 
                 <div class="input-group input-group-merge">
-                    <input asp-for="Input.Password"  type="password" class="js-toggle-password form-control form-control-lg" name="password" id="signupSrPassword" placeholder="password" aria-label="Password" required
+                    <input asp-for="Input.Password" type="password" class="js-toggle-password form-control form-control-lg formClass" name="password" id="signupSrPassword" placeholder="password" aria-label="Password" required
                            data-msg="Your password is invalid. Please try again."
                            data-hs-toggle-password-options='{
                              "target": "#changePassTarget",
@@ -51,16 +51,13 @@
                 </div>
             </div>
             <!-- End Form Group -->
-            <!-- Checkbox -->
-            @*<div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox">
-                        <label class="custom-control-label text-muted" for="termsCheckbox"> Remember me</label>
-                    </div>
-                </div>*@
-            <!-- End Checkbox -->
+            <div class="d-flex justify-content-center" style="visibility:hidden" id="spinnerRegister">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+            </div>
 
-            <button type="submit" class="btn btn-lg btn-block btn-primary">Login</button>
+            <button type="submit" class="btn btn-lg btn-block btn-primary" id="btnLogin">Login</button>
             <a href="/Identity/Account/Register" class="btn btn-lg btn-block btn-primary">Register</a>
         </form>
         <!-- End Form -->
@@ -70,28 +67,37 @@
     </div>
 </div>
 @section Scripts {
-    <!-- JS Implementing Plugins -->
-    <script src="@template/assets/js/components/hs.validation.js"></script>
-    <script src="~/front-dashboard-v1.1/dist/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/front-dashboard-v1.1/src/assets/js/hs.validation.js"></script>
-    <script>
-        $(document).on('ready', function () {
-            // INITIALIZATION OF FORM VALIDATION
-            // =======================================================
-            $('.js-validate').each(function () {
-                $.HSCore.components.HSValidation.init($(this));
-            });
+<!-- JS Implementing Plugins -->
+<script src="@template/assets/js/components/hs.validation.js"></script>
+<script src="~/front-dashboard-v1.1/dist/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/front-dashboard-v1.1/src/assets/js/hs.validation.js"></script>
+<script>
+    $(document).on('ready', function () {
+        // INITIALIZATION OF FORM VALIDATION
+        // =======================================================
+        $('.js-validate').each(function () {
+            $.HSCore.components.HSValidation.init($(this));
         });
-    </script>
-    <style>
-        .validation-summary-errors ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
+    });
+</script>
+<style>
+    .validation-summary-errors ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<script>
+            $("#btnLogin").click(function(){
+          const response = $('.registerClass').map(function () {
+          var obj = {};
+          $(this).find('input.formClass').each(function (i, el) {
+                    if (el.value != "") {
+                        document.getElementById('spinnerRegister').style.visibility = 'visible';
+                    }
+          })
+          return obj
+        }).get()
+    })
+</script>
 }
-
-@*
-    <partial name="_ValidationScriptsPartial" />
-    }*@

@@ -42,6 +42,7 @@ namespace SmartReservation.Controllers
         {
             var MenuItemViewModel = new SmartReservation.Models.MenuItemViewModel();
             MenuItemViewModel.MenuItem = await _menuItem.FindByIdAsync(MenuItemID);
+            MenuItemViewModel.MenuItemID = MenuItemID; 
             return View(MenuItemViewModel);
         }
 
@@ -50,13 +51,65 @@ namespace SmartReservation.Controllers
         {
             var menuItem = new MenuItem()
             {
+                MenuItemID = model.MenuItemID,
                 Name = model.MenuItem.Name,
                 Price = model.MenuItem.Price,
                 CreatedOn = DateTime.Now,
                 CreatedByUserID = User.GetUserId()
             };
-            var result = await _menuItem.UpdateAsync(menuItem);
-            return RedirectToAction("Restaurants", "Restaurant");
+
+            var result = await _menuItem.CheckIfMenuItemExist(model.MenuItem.Name);
+            var MenuDetails = await _menuItem.FindByIdAsync(model.MenuItemID);
+            if (MenuDetails.Name == model.MenuItem.Name)
+            {
+
+                if (MenuDetails.Name != model.MenuItem.Name)
+                {
+                    if (MenuDetails.Name == model.MenuItem.Name)
+                    {
+                        model.ItemExist = "";
+                    }
+                    if (MenuDetails.Name != model.MenuItem.Name)
+                    {
+                        model.MenuItemExist = "Menu Item Exist";
+                    }
+                    if (result.Name == "False")
+                    {
+                        await _menuItem.UpdateAsync(menuItem);
+                        return RedirectToAction("Restaurants", "Restaurant");
+                    }
+                    else
+                    {
+                        model.MenuItemExist = "Menu Item Exist";
+                        model.ItemExist = "True";
+                        return View(model);
+                    }
+                }
+                await _menuItem.UpdateAsync(menuItem);
+                return RedirectToAction("Restaurants", "Restaurant");
+            }
+
+
+            if (MenuDetails.Name == model.MenuItem.Name)
+            {
+                model.ItemExist = "";
+            }
+            if (MenuDetails.Name != model.MenuItem.Name)
+            {
+                model.MenuItemExist = "Menu Item Exist";
+            }
+            if (result.Name == "False")
+            {
+                await _menuItem.UpdateAsync(menuItem);
+                return RedirectToAction("Restaurants", "Restaurant");
+            }
+            else
+            {
+
+                model.MenuItemExist = "Menu Item Exist";
+                model.ItemExist = "True";
+                return View(model);
+            }
         }
     }
 }

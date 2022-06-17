@@ -37,7 +37,11 @@
                                     <label for="txtName" class="input-label">Name</label>
                                     <div class="js-form-message mb-3">
                                         <input id="txtName" type="text" class="form-control" required="required"
-                                               placeholder="Name" aria-label="Current Value" asp-for="MenuItem.Name">
+                                               placeholder="Name" aria-label="Current Value" asp-for="MenuItem.Name" value="@Model.MenuItem.Name">
+                                        @if(Model.ItemExist == "True")
+                                        {
+                                            <span style="color:#ed4c78;font-size: 80%;">@Model.MenuItemExist</span>
+                                        }
                                     </div>
                                 </div>
                                 <!-- End Form Group -->
@@ -45,12 +49,12 @@
                                     <label for="txtPrice" class="input-label">Price</label>
                                     <div class="js-form-message mb-3">
                                         <input id="txtPrice" type="text" class="form-control" required="required"
-                                               placeholder="Price" aria-label="Current Value" asp-for="MenuItem.Price">
+                                               placeholder="Price" aria-label="Current Value" asp-for="MenuItem.Price" value="@Model.MenuItem.Price">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        @Html.HiddenFor(model =>model.MenuItemID)
                         <div class="w-100"></div>
                         <!-- End Form -->
                     </div>

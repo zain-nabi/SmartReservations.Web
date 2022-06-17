@@ -9,6 +9,9 @@ namespace SmartReservation.Models
         public IEnumerable<SelectListItem> ReservationStatusList { get; set; }
         public Reservation Reservation { get; set; }
         public int RestaurantID { get; set; }
+        public string ReservationExistMessage { get; set; }
         public IEnumerable<SelectListItem> Restaurants { get; set; }
+        public string TimeExist { get; set; }
+        public string TimeExistMessge { get; set; }
     }
 }

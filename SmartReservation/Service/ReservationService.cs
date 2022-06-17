@@ -49,5 +49,10 @@ namespace SmartReservation.Service
         {
             return await _connection.GetAsync<Reservation>("Reservation", $"FindByIdAsync?ReservationID={ReservationID}");
         }
+
+        public async Task<Reservation> CheckIfReservationExist(string ReservationDate)
+        {
+            return await _connection.GetAsync<Reservation>("Reservation", $"CheckIfReservationExist?ReservationDate={ReservationDate}");
+        }
     }
 }

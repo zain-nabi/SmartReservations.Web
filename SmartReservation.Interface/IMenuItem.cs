@@ -11,5 +11,6 @@ namespace SmartReservation.Interface
         Task<bool> UpdateAsync(Model.MenuItem MenuItem);
         Task<Model.MenuItem> FindByIdAsync(int MenuItemID);
         Task<List<Model.MenuItem>> Items();
+        Task<Model.MenuItem> CheckIfMenuItemExist(string MenuItem);
     }
 }

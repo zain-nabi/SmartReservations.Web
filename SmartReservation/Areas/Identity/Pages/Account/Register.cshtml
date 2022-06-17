@@ -18,37 +18,42 @@
             </div>
 
             <!-- Form Group -->
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="txtFirstName">First Name</label>
-                <input type="text" class="form-control" asp-for="Input.FirstName" required id="txtFirstName">
+                <input type="text" class="form-control formClass" asp-for="Input.FirstName" required id="txtFirstName">
 
             </div>
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="txtSurname">Surname</label>
-                <input type="text" class="form-control" asp-for="Input.LastName" required id="txtSurname">
+                <input type="text" class="form-control formClass" asp-for="Input.LastName" required id="txtSurname">
 
             </div>
 
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="txtEmail">Your email</label>
-                <input type="text" class="form-control" asp-for="Input.Email" required id="txtEmail">
+                <input type="text" class="form-control formClass" asp-for="Input.Email" required id="txtEmail">
                 <span style="color:#ed4c78;font-size: 80%;">@Model.EmailExist</span>
             </div>
 
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="txtCellphone">Cellphone</label>
-                <input type="text" class="form-control" asp-for="Input.PhoneNumber" required id="txtCellphone">
+                <input type="text" class="form-control formClass" asp-for="Input.PhoneNumber" required id="txtCellphone">
 
             </div>
 
 
-            <div class="js-form-message form-group">
+            <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="txtPassword">Password</label>
-                <input type="password" class="form-control" asp-for="Input.Password" required id="txtPassword">
+                <input type="password" class="form-control formClass" asp-for="Input.Password" required id="txtPassword">
 
             </div>
+            <div class="d-flex justify-content-center" style="visibility:hidden" id="spinnerRegister">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+            </div>
 
-            <button type="submit" class="btn btn-lg btn-block btn-primary">Register</button>
+            <button type="submit" class="btn btn-lg btn-block btn-primary" id="btnRegister">Register</button>
             <a href="/Identity/Account/Login" class="btn btn-lg btn-block btn-primary">Login</a>
         </form>
     </div>
@@ -76,13 +81,16 @@
         });
     });
 
-    $("#ddlRoles").change(function () {
-        var selectedVal = $('#ddlRoles :selected').text()
-        if (selectedVal == "Customer") {
-            $('#ddlCustomers').css('visibility', 'visible');
-        } else {
-            $('#ddlCustomers').css('visibility', 'hidden');
-        }
-    });
+    $("#btnRegister").click(function(){
+          const response = $('.registerClass').map(function () {
+          var obj = {};
+          $(this).find('input.formClass').each(function (i, el) {
+                    if (el.value != "") {
+                        document.getElementById('spinnerRegister').style.visibility = 'visible';
+                    }
+          })
+          return obj
+        }).get()
+    })
 </script>
 }

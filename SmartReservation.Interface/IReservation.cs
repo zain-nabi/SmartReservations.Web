@@ -14,5 +14,6 @@ namespace SmartReservation.Interface
         Task<List<Model.Reservation>> UserReservations(int userID);
         Task<List<Model.Reservation>> Reservations();
         Task<Model.Reservation> FindByIdAsync(int ReservationID);
+        Task<Model.Reservation> CheckIfReservationExist(string ReservationDate);
     }
 }

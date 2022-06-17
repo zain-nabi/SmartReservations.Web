@@ -27,7 +27,8 @@ namespace SmartReservation.Controllers
         {
             var ReservationViewModel = new ReservationViewModel()
             {
-                Restaurants = new SelectList(await _restaurant.Restaurants(), "restaurantID", "Name")
+                Restaurants = new SelectList(await _restaurant.Restaurants(), "restaurantID", "Name"),
+                ReservationExistMessage = null
             };
             if (RestaurantID == 0)
             {
@@ -44,6 +45,14 @@ namespace SmartReservation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel model)
         {
+            string newReservationDate = model.Reservation.Time.ToString();
+            var checkIfReservationExist = await _rservation.CheckIfReservationExist(newReservationDate);
+            if(checkIfReservationExist.Name == "True")
+            {
+                model.Restaurants = new SelectList(await _restaurant.Restaurants(), "restaurantID", "Name");
+                model.ReservationExistMessage = "Reservation already Exist";
+                return View(model);
+            }
             var reservation = new Reservation()
             {
                 People = model.Reservation.People,
@@ -83,6 +92,8 @@ namespace SmartReservation.Controllers
             ReservationViewModel.Reservation = new Reservation();
             var result = await _rservation.FindByIdAsync(ReservationID);
             ReservationViewModel.Reservation = result;
+            ReservationViewModel.TimeExist = "False";
+            ReservationViewModel.TimeExistMessge = null;
             ReservationViewModel.Reservation.reservationID = ReservationID;
             ReservationViewModel.Restaurants = new SelectList(await _restaurant.Restaurants(), "restaurantID", "Name");
             ReservationViewModel.ReservationStatusList = new SelectList(await _reservationStatus.ReservationStatuses(), "reservationstatusID", "Status");
@@ -105,8 +116,61 @@ namespace SmartReservation.Controllers
                 CreatedOn = DateTime.Now,
                 CreatedByUserID = User.GetUserId()
             };
-            var result = await _rservation.UpdateAsync(Reservation);
-            return RedirectToAction("Reservations", "Reservation");
+            var result = await _rservation.CheckIfReservationExist(model.Reservation.Time.ToString());
+            var MenuDetails = await _rservation.FindByIdAsync(model.Reservation.reservationID);
+            if (MenuDetails.Time == model.Reservation.Time)
+            {
+                if (MenuDetails.Time != model.Reservation.Time)
+                {
+                    if (MenuDetails.Time == model.Reservation.Time)
+                    {
+                        model.TimeExist = "";
+                    }
+                    if (MenuDetails.Time != model.Reservation.Time)
+                    {
+                        model.TimeExistMessge = "Reservation Exist";
+                    }
+                    if (result.Name == "False")
+                    {
+                        await _rservation.UpdateAsync(Reservation);
+                        return RedirectToAction("Reservations", "Reservation");
+                    }
+                    else
+                    {
+                        model.Restaurants = new SelectList(await _restaurant.Restaurants(), "restaurantID", "Name");
+                        model.ReservationStatusList = new SelectList(await _reservationStatus.ReservationStatuses(), "reservationstatusID", "Status");
+                        model.TimeExistMessge = "Reservation Exist";
+                        model.TimeExist = "True";
+                        return View(model);
+                    }
+                }
+                await _rservation.UpdateAsync(Reservation);
+                return RedirectToAction("Reservations", "Reservation");
+            }
+
+
+            if (MenuDetails.Time == model.Reservation.Time)
+            {
+                model.TimeExist = "";
+            }
+            if (MenuDetails.Time != model.Reservation.Time)
+            {
+                model.TimeExistMessge = "Reservation Exist";
+            }
+            if (result.Name == "False")
+            {
+                await _rservation.UpdateAsync(Reservation);
+                return RedirectToAction("Reservations", "Reservation");
+            }
+            else
+            {
+                model.Restaurants = new SelectList(await _restaurant.Restaurants(), "restaurantID", "Name");
+                model.ReservationStatusList = new SelectList(await _reservationStatus.ReservationStatuses(), "reservationstatusID", "Status");
+                model.TimeExistMessge = "Reservation Exist";
+                model.TimeExist = "True";
+                return View(model);
+            }
+
         }
 
         [HttpGet]

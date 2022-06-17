@@ -33,18 +33,18 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- Form Group -->
-                                <div class="form-group">
+                                <div class="form-group registerClass">
                                     <label for="txtPeople" class="input-label">People</label>
                                     <div class="js-form-message mb-3">
-                                        <input id="txtPeople" type="text" class="form-control" required="required"
+                                        <input id="txtPeople" type="text" class="form-control formClass" required="required"
                                                placeholder="People" aria-label="Current Value" asp-for="Reservation.People">
                                     </div>
                                 </div>
                                 <!-- End Form Group -->
-                                <div class="form-group">
+                                <div class="form-group registerClass">
                                     <label for="Restaurant" class="input-label">Restaurant</label>
                                     <div class="js-form-message mb-3">
-                                        <select class="js-select2-custom custom-select" size="1" style="opacity: 0;" asp-for="RestaurantID" asp-items="Model.Restaurants" required
+                                        <select class="js-select2-custom custom-select formClass" size="1" style="opacity: 0;" asp-for="RestaurantID" asp-items="Model.Restaurants" required
                                                 data-msg="Please select a vehicle model."
                                                 data-hs-select2-options='{
                                                 "minimumResultsForSearch": "Infinity",
@@ -54,14 +54,15 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group registerClass">
                                     <label for="txtTime" class="input-label">Time</label>
                                     <div class="js-form-message mb-3">
-                                        <input type="datetime" class="js-flatpickr form-control flatpickr-custom" placeholder="Select dates" required data-msg="Please select a date" asp-for="Reservation.Time"
+                                        <input type="datetime" class="js-flatpickr form-control flatpickr-custom formClass" placeholder="Select dates" required data-msg="Please select a date" asp-for="Reservation.Time"
                                                data-hs-flatpickr-options='{
                                                 "dateFormat": "Y/m/d H:i",
                                                 "enableTime": "true"
                                             }'>
+                                        <span style="color:#ed4c78;font-size: 80%;">@Model.ReservationExistMessage</span>
                                     </div>
                                 </div>
                             </div>
@@ -71,25 +72,29 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- Form Group -->
-                                <div class="form-group">
+                                <div class="form-group registerClass">
                                     <label for="txtName" class="input-label">Name</label>
                                     <div class="js-form-message mb-3">
-                                        <input id="txtName" type="text" class="form-control" required="required"
+                                        <input id="txtName" type="text" class="form-control formClass" required="required"
                                                placeholder="Name" aria-label="Current Value" asp-for="Reservation.Name">
                                     </div>
                                 </div>
                                 <!-- End Form Group -->
-                                <div class="form-group">
+                                <div class="form-group registerClass">
                                     <label for="txtCell" class="input-label">Phone</label>
                                     <div class="js-form-message mb-3">
-                                        <input id="txtPhone" type="text" class="form-control" required="required"
+                                        <input id="txtPhone" type="text" class="form-control formClass" required="required"
                                                placeholder="Phone" aria-label="Current Value" asp-for="Reservation.Cell">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         @Html.HiddenFor(model => model.RestaurantID)
-
+                        <div class="d-flex justify-content-center" style="visibility:hidden" id="spinnerRegister">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden"></span>
+                            </div>
+                        </div>
                         <div class="w-100"></div>
                         <!-- End Form -->
                     </div>
@@ -121,7 +126,7 @@
           }
     });
 
-        $(function () {
+    $(function () {
         $("#txtName").on("change", function () {
             var isValid = false;
             var regex = /^[a-zA-Z ]*$/;
@@ -130,6 +135,18 @@
             return isValid;
         });
     });
+
+        $("#btnSave").click(function(){
+          const response = $('.registerClass').map(function () {
+          var obj = {};
+          $(this).find('input.formClass, select.formClass').each(function (i, el) {
+                    if (el.value != "") {
+                        document.getElementById('spinnerRegister').style.visibility = 'visible';
+                    }
+          })
+          return obj
+        }).get()
+    })
 </script>
 }
 

@@ -105,6 +105,9 @@
                                                 "dateFormat": "Y/m/d H:i",
                                                 "enableTime": "true"
                                             }'>
+                                            @if(Model.TimeExist == "True"){
+                                                 <span style="color:#ed4c78;font-size: 80%;">@Model.TimeExistMessge</span>
+                                            }
                                     </div>
                                 </div>
                             </div>
