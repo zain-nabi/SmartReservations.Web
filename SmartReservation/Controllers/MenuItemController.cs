@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartReservation.Interface;
 using SmartReservation.Model;
 using SmartReservation.Utils;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartReservation.Controllers
 {
+    [Authorize]
     public class MenuItemController : Controller
     {
         private readonly IMenuItem _menuItem;

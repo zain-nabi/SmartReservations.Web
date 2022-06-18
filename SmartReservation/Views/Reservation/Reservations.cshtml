@@ -29,7 +29,7 @@
     </div>
     <div class="content container-fluid my-n9">
         <div class="row">
-            @foreach (var item in Model.OrderBy(model => model.Time))
+            @foreach (var item in Model.OrderBy(model => model.ReservationTime))
             {
                 <div id="stickyBlockStartPoint" class="col-lg-4 mb-3 mb-lg-0" style="">
                     <div class="js-sticky-block" data-hs-sticky-block-options="{
@@ -60,7 +60,7 @@
                                     <dd class="col-sm-9">@item.People</dd>
 
                                     <dt class="col-sm-3">Time</dt>
-                                    <dd class="col-sm-9">@item.Time</dd>
+                                    <dd class="col-sm-9">@item.ReservationTime</dd>
 
 
 
@@ -98,7 +98,7 @@
                             {
                                 <a href="@Url.Action("Create","Order", new{reservationID = item.reservationID, RestaurantID = item.RestaurantID, NoOfPeople = item.People})" class="btn btn-primary">Place Order</a>
                             }
-                            <a href="@Url.Action("Update","Reservation", new{reservationID = item.reservationID})" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("Update","Reservation", new{ReservationID = item.reservationID})" class="btn btn-primary">Edit</a>
                             <div class="hs-unfold">
                                 <a class="js-hs-unfold-invoker btn btn-primary" href="javascript:;" data-hs-unfold-options="{
                                             &quot;target&quot;: &quot;#@item.reservationID&quot;,

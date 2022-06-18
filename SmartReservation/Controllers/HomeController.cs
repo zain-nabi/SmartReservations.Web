@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SmartReservation.Interface;
 using SmartReservation.Models;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,22 @@ namespace SmartReservation.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private readonly IDashboard _dashboard;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDashboard dashboard)
         {
             _logger = logger;
+            _dashboard = dashboard;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var DashboardViewModel = new DashboardViewModel();
+            DashboardViewModel.ReservationArrived = await _dashboard.GetArrivedReservations();
+            DashboardViewModel.ReservationBooked = await _dashboard.GetBookedReservations();
+            DashboardViewModel.ReservationComplete = await _dashboard.GetCompleteReservations();
+            return View(DashboardViewModel);
         }
 
         public IActionResult Privacy()

@@ -1,14 +1,247 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿@model SmartReservation.Models.DashboardViewModel
 
 <main id="content" role="main" class="main pointer-event">
     <!-- Content -->
     <div class="content container-fluid">
-        <div class="text-center">
-            <h1 class="display-4">Welcome</h1>
-            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <h1 class="page-header-title">Dashboard</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-lg-4 mb-3 mb-lg-6">
+                <!-- Card -->
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <!-- Media -->
+                                <div class="media">
+                                    <i class="far fa-tachometer-alt-fastest nav-icon"></i>
+
+                                    <div class="media-body">
+                                        <h4 class="mb-1">Booked Reservations</h4>
+                                        <span class="d-block">@Model.ReservationBooked.BookedCount</span>
+                                    </div>
+                                </div>
+                                <!-- End Media -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </div>
+                <!-- End Card -->
+            </div>
+
+            <div class="col-sm-4 col-lg-4 mb-3 mb-lg-6">
+                <!-- Card -->
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <!-- Media -->
+                                <div class="media">
+                                    <i class="far fa-check-circle nav-icon"></i>
+
+                                    <div class="media-body">
+                                        <h4 class="mb-1">Arrived</h4>
+                                        <span class="font-size-sm text-success">
+                                            @Model.ReservationArrived.ArrivedCount
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- End Media -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </div>
+                <!-- End Card -->
+            </div>
+
+            <div class="col-sm-4 col-lg-4 mb-3 mb-lg-6">
+                <!-- Card -->
+                <div class="card card-sm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <!-- Media -->
+                                <div class="media">
+                                    <i class="far fa-exclamation-circle nav-icon"></i>
+
+                                    <div class="media-body">
+                                        <h4 class="mb-1">Complete</h4>
+                                        <span class="d-block">@Model.ReservationComplete.CompleteCount</span>
+                                    </div>
+                                </div>
+                                <!-- End Media -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                </div>
+                <!-- End Card -->
+            </div>
+        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-header bg-soft-secondary">
+                        <h5 class="card-header-title">
+                            Bubble Chart Of All Reservations
+                        </h5>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="chartjs-custom mx-auto" style="height: 20rem;">
+                            <canvas class="js-chart-datalabels"
+                                    data-hs-chartjs-options='{
+            "type": "bubble",
+            "data": {
+              "datasets": [
+                {
+                  "label": "Booked",
+                  "data": [
+                    {"x": 55, "y": 65, "r": @Model.ReservationBooked.BookedCount}
+                  ],
+                  "color": "#fff",
+                  "backgroundColor": "rgba(55, 125, 255, 0.9)",
+                  "borderColor": "transparent"
+                },
+                {
+                  "label": "Arrived",
+                  "data": [
+                    {"x": 33, "y": 42, "r": @Model.ReservationArrived.ArrivedCount}
+                  ],
+                  "color": "#fff",
+                  "backgroundColor": "rgba(100, 0, 214, 0.8)",
+                  "borderColor": "transparent"
+                },
+                {
+                  "label": "Complete",
+                  "data": [
+                    {"x": 46, "y": 26, "r": @Model.ReservationComplete.CompleteCount}
+                  ],
+                  "color": "#fff",
+                  "backgroundColor": "#00c9db",
+                  "borderColor": "transparent"
+                }
+              ]
+            },
+            "options": {
+              "scales": {
+                "yAxes": [{
+                  "gridLines": {
+                    "display": false
+                  },
+                  "ticks": {
+                    "display": false,
+                    "max": 100,
+                    "beginAtZero": true
+                  }
+                }],
+                "xAxes": [{
+                "gridLines": {
+                    "display": false
+                  },
+                  "ticks": {
+                    "display": false,
+                    "max": 100,
+                    "beginAtZero": true
+                  }
+                }]
+              },
+              "tooltips": false
+            }
+          }'></canvas>
+                        </div>
+                        <!-- End Chart -->
+                        <!-- Legend Indicators -->
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <span class="legend-indicator bg-primary"></span> Booked
+                            </div>
+
+                            <div class="col-auto">
+                                <span class="legend-indicator" style="background-color: #7000f2;"></span> Arrived
+                            </div>
+
+                            <div class="col-auto">
+                                <span class="legend-indicator bg-info"></span> Complete
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
+@section scripts {
+<script src="~/front-dashboard-v1.1/dist/assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="~/front-dashboard-v1.1/src/assets/js/hs.chartjs.js"></script>
+<script src="~/front-dashboard-v1.1/dist/assets/vendor/chart.js.extensions/chartjs-extensions.js"></script>
+<script src="~/front-dashboard-v1.1/dist/assets/vendor/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
+
+<script>
+    $(document).on('ready', function () {
+        // INITIALIZATION OF CHARTJS
+        // =======================================================
+        Chart.plugins.unregister(ChartDataLabels);
+        $('.js-chart').each(function () {
+            $.HSCore.components.HSChartJS.init($(this));
+        });
+
+        var updatingChart = $.HSCore.components.HSChartJS.init($('#updatingData'));
+
+
+        // INITIALIZATION OF BUBBLE CHARTJS WITH DATALABELS PLUGIN
+        // =======================================================
+        $('.js-chart-datalabels').each(function () {
+            $.HSCore.components.HSChartJS.init($(this), {
+                plugins: [ChartDataLabels],
+                options: {
+                    plugins: {
+                        datalabels: {
+                            anchor: function (context) {
+                                var value = context.dataset.data[context.dataIndex];
+                                return value.r < 20 ? 'end' : 'center';
+                            },
+                            align: function (context) {
+                                var value = context.dataset.data[context.dataIndex];
+                                return value.r < 20 ? 'end' : 'center';
+                            },
+                            color: function (context) {
+                                var value = context.dataset.data[context.dataIndex];
+                                return value.r < 20 ? context.dataset.backgroundColor : context.dataset.color;
+                            },
+                            font: function (context) {
+                                var value = context.dataset.data[context.dataIndex],
+                                    fontSize = 25;
+
+                                if (value.r > 50) {
+                                    fontSize = 35;
+                                }
+
+                                if (value.r > 70) {
+                                    fontSize = 55;
+                                }
+
+                                return {
+                                    weight: 'lighter',
+                                    size: fontSize
+                                };
+                            },
+                            offset: 2,
+                            padding: 0
+                        }
+                    }
+                },
+            });
+        });
+    });
+
+</script>
+}

@@ -37,7 +37,7 @@
 
             <div class="js-form-message form-group registerClass">
                 <label class="input-label" for="txtCellphone">Cellphone</label>
-                <input type="text" class="form-control formClass" asp-for="Input.PhoneNumber" required id="txtCellphone">
+                <input type="text" class="form-control formClass" asp-for="Input.PhoneNumber" required id="txtCellphone" maxlength="13">
 
             </div>
 
@@ -60,25 +60,27 @@
 </div>
 @section scripts{
 <script type="text/javascript">
-    $(function () {
-        $("#txtLastName").on("change", function () {
-            var isValid = false;
-            var regex = /^[a-zA-Z ]*$/;
-            isValid = regex.test($("[id*=txtLastName]").val());
-            $("#spnError2").css("display", !isValid ? "block" : "none");
-            return isValid;
-        });
-    });
+ $( "#txtSurname" ).keypress(function(e) {
+                    var key = e.keyCode;
+                    if (key >= 48 && key <= 57) {
+                        e.preventDefault();
+                    }
+                });
 
 
-    $(function () {
-        $("#txtFirstName").on("change", function () {
-            var isValid = false;
-            var regex = /^[a-zA-Z ]*$/;
-            isValid = regex.test($("[id*=txtFirstName]").val());
-            $("#spnError1").css("display", !isValid ? "block" : "none");
-            return isValid;
-        });
+     $( "#txtFirstName" ).keypress(function(e) {
+                    var key = e.keyCode;
+                    if (key >= 48 && key <= 57) {
+                        e.preventDefault();
+                    }
+                });
+
+
+    $('#txtCellphone').keyup(function(e){
+          if (/\D/g.test(this.value))
+          {
+            this.value = this.value.replace(/\D/g, '');
+          }
     });
 
     $("#btnRegister").click(function(){

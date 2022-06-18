@@ -17,6 +17,7 @@ namespace SmartReservation
             services.AddScoped<ITableSettings, TableSettingsService>();
             services.AddScoped<IMenuItem, MenuItemService>();
             services.AddScoped<IOrder, OrderRepository>();
+            services.AddScoped<IDashboard, DashboardService>();
         }
     }
 }

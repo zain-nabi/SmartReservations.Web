@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SmartReservation.Interface;
 using SmartReservation.Model;
 using SmartReservation.Service;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartReservation.Controllers
 {
+    [Authorize]
     public class RestaurantController : Controller
     {
         private readonly IRestaurant _restaurant;

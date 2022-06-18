@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using SmartReservation.Interface;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace SmartReservation.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IOrder _order;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SmartReservation.Interface;
 using SmartReservation.Model;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SmartReservation.Controllers
 {
+    [Authorize]
     public class ReservationController : Controller
     {
         private readonly IReservation _rservation;
@@ -45,7 +47,7 @@ namespace SmartReservation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel model)
         {
-            string newReservationDate = model.Reservation.Time.ToString();
+            string newReservationDate = model.Reservation.ReservationTime.ToString();
             var checkIfReservationExist = await _rservation.CheckIfReservationExist(newReservationDate);
             if(checkIfReservationExist.Name == "True")
             {
@@ -57,7 +59,7 @@ namespace SmartReservation.Controllers
             {
                 People = model.Reservation.People,
                 RestaurantID = model.RestaurantID,
-                Time = model.Reservation.Time,
+                ReservationTime = model.Reservation.ReservationTime,
                 Name = model.Reservation.Name,
                 Cell = model.Reservation.Cell,
                 OrderTotalID = 0,
@@ -108,7 +110,7 @@ namespace SmartReservation.Controllers
                 reservationID = model.Reservation.reservationID,
                 People = model.Reservation.People,
                 RestaurantID = model.Reservation.RestaurantID,
-                Time = model.Reservation.Time,
+                ReservationTime = model.Reservation.ReservationTime,
                 Name = model.Reservation.Name,
                 Cell = model.Reservation.Cell,
                 OrderTotalID = model.Reservation.OrderTotalID,
@@ -116,17 +118,17 @@ namespace SmartReservation.Controllers
                 CreatedOn = DateTime.Now,
                 CreatedByUserID = User.GetUserId()
             };
-            var result = await _rservation.CheckIfReservationExist(model.Reservation.Time.ToString());
+            var result = await _rservation.CheckIfReservationExist(model.Reservation.ReservationTime.ToString());
             var MenuDetails = await _rservation.FindByIdAsync(model.Reservation.reservationID);
-            if (MenuDetails.Time == model.Reservation.Time)
+            if (MenuDetails.ReservationTime == model.Reservation.ReservationTime)
             {
-                if (MenuDetails.Time != model.Reservation.Time)
+                if (MenuDetails.ReservationTime != model.Reservation.ReservationTime)
                 {
-                    if (MenuDetails.Time == model.Reservation.Time)
+                    if (MenuDetails.ReservationTime == model.Reservation.ReservationTime)
                     {
                         model.TimeExist = "";
                     }
-                    if (MenuDetails.Time != model.Reservation.Time)
+                    if (MenuDetails.ReservationTime != model.Reservation.ReservationTime)
                     {
                         model.TimeExistMessge = "Reservation Exist";
                     }
@@ -149,11 +151,11 @@ namespace SmartReservation.Controllers
             }
 
 
-            if (MenuDetails.Time == model.Reservation.Time)
+            if (MenuDetails.ReservationTime == model.Reservation.ReservationTime)
             {
                 model.TimeExist = "";
             }
-            if (MenuDetails.Time != model.Reservation.Time)
+            if (MenuDetails.ReservationTime != model.Reservation.ReservationTime)
             {
                 model.TimeExistMessge = "Reservation Exist";
             }
@@ -223,7 +225,7 @@ namespace SmartReservation.Controllers
                 reservationID = model.Reservation.reservationID,
                 People = model.Reservation.People,
                 RestaurantID = model.Reservation.RestaurantID,
-                Time = model.Reservation.Time,
+                ReservationTime = model.Reservation.ReservationTime,
                 Name = model.Reservation.Name,
                 Cell = model.Reservation.Cell,
                 OrderTotalID = model.Reservation.OrderTotalID,
