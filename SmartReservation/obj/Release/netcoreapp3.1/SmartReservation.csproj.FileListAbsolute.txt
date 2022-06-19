@@ -466,3 +466,4 @@ C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReser
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\Razor\Views\Restaurant\Restaurants.cshtml.g.cs
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\Razor\Views\Restaurant\Update.cshtml.g.cs
 C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\bin\Release\netcoreapp3.1\Html\ResetPassword.html
+C:\Users\zaino\Documents\Visual Studio 2019\Projects\SmartReservation\SmartReservation\obj\Release\netcoreapp3.1\Razor\Views\Home\Files.cshtml.g.cs

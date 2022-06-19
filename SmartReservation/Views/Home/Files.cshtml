@@ -1,0 +1,113 @@
+﻿<main id="content" role="main" class="main">
+    <!-- Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-end mb-3">
+                <div class="col-sm mb-2 mb-sm-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-no-gutter">
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Pages</a></li>
+                            <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Project</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Files</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="page-header-title">Files</h1>
+                </div>
+                <!-- End Col -->
+
+                <div class="col-sm-auto" aria-label="Button group">
+                    <!-- Button Group -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadFilesModal">
+                            <i class="bi-cloud-arrow-up-fill me-1"></i> Upload
+                        </button>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" id="uploadGroupDropdown" data-bs-toggle="dropdown" aria-expanded="false"></button>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="uploadGroupDropdown" style="">
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi-folder-plus dropdown-item-icon"></i> New folder
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi-folder-symlink dropdown-item-icon"></i> New shared folder
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#uploadFilesModal">
+                                    <i class="bi-file-earmark-arrow-up dropdown-item-icon"></i> Upload files
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" data-bs-toggle="modal" data-bs-target="#uploadFilesModal">
+                                    <i class="bi-upload dropdown-item-icon"></i> Upload folder
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Button Group -->
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
+            <!-- Nav -->
+            <!-- Nav -->
+            <div class="js-nav-scroller hs-nav-scroller-horizontal">
+                <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+                    <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                        <i class="bi-chevron-left"></i>
+                    </a>
+                </span>
+
+                <span class="hs-nav-scroller-arrow-next" style="display: none;">
+                    <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                        <i class="bi-chevron-right"></i>
+                    </a>
+                </span>
+            </div>
+            <!-- End Nav -->
+        </div>
+        <!-- End Page Header -->
+        <!-- List Group -->
+        <ul class="list-group">
+            <!-- Item -->
+            <li class="list-group-item">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        @*<img class="avatar avatar-xs avatar-4x3" src="./assets/svg/brands/google-docs-icon.svg" alt="Image Description">*@
+                    </div>
+
+                    <div class="col">
+                        <h5 class="mb-0">
+                            <a class="text-dark" href="#">Booked Reseravtions</a>
+                        </h5>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-auto">
+                        <form method="post" asp-controller="Home" asp-action="BookedReservationReport">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <input type="text" class="js-flatpickr form-control flatpickr-custom formClass" placeholder="Select dates" required data-msg="Please select a date" name="startDate"
+                                           data-hs-flatpickr-options='{
+                                                "dateFormat": "Y/m/d"
+                                            }'>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="js-flatpickr form-control flatpickr-custom formClass" placeholder="Select dates" required data-msg="Please select a date" name="endDate"
+                                           data-hs-flatpickr-options='{
+                                                "dateFormat": "Y/m/d"
+                                            }'>
+                                </div>
+                                <div class="col-md-4">                                <input type="submit" value="Generate" class="btn btn-dark" /></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End Row -->
+            </li>
+            <!-- End Item -->
+        </ul>
+        <!-- End List Group -->
+    </div>
+    <!-- End Content -->
+</main>

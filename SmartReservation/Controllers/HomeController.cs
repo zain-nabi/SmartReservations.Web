@@ -49,6 +49,28 @@ namespace SmartReservation.Controllers
             
         }
 
+        [HttpGet]
+        public IActionResult Files()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BookedReservationReport(DateTime startDate, DateTime endDate, string reportName = "BookedReservations", string reportType = "PDF")
+        {
+            try
+            {
+                var result = await _dashboard.BookedReservationsByDateAsync(reportName, reportType, startDate, endDate);
+                return File(result, MediaTypeNames.Application.Octet, getReportName(reportName, reportType));
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+        }
+
         private string getReportName(string reportName = "Users1", string reportType = "PDF")
         {
             var outputFileName = reportName + ".pdf";

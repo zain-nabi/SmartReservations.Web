@@ -2,6 +2,7 @@
 using SmartReservation.Interface;
 using SmartReservation.Model;
 using SmartReservation.Model.Custom;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -14,6 +15,11 @@ namespace SmartReservation.Service
         public DashboardService(IConfiguration configuration, IHttpClientFactory factory)
         {
             _connection = new Connection(configuration, factory);
+        }
+
+        public async Task<byte[]> BookedReservationsByDateAsync(string reportName, string reportType, DateTime startDate, DateTime endDate)
+        {
+            return await _connection.GetAsync<byte[]>("Dashboard", $"BookedReservationsByDateAsync?reportName={reportName}&reportType={reportType}&startDate={startDate}&endDate={endDate}");
         }
 
         public async Task<byte[]> GenerateReportAsync(string reportName ,string reportType )

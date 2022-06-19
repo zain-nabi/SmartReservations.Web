@@ -12,5 +12,6 @@ namespace SmartReservation.Interface
         Task<Model.ReservationArrived> GetArrivedReservations();
         Task<Model.ReservationComplete> GetCompleteReservations();
         Task<byte[]> GenerateReportAsync(string reportName, string reportType);
+        Task<byte[]> BookedReservationsByDateAsync(string reportName, string reportType, DateTime startDate, DateTime endDate);
     }
 }
