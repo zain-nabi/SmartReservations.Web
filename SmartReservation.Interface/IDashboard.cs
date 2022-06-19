@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartReservation.Model.Custom;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,5 +11,6 @@ namespace SmartReservation.Interface
         Task<Model.ReservationBooked> GetBookedReservations();
         Task<Model.ReservationArrived> GetArrivedReservations();
         Task<Model.ReservationComplete> GetCompleteReservations();
+        Task<byte[]> GenerateReportAsync(string reportName, string reportType);
     }
 }
